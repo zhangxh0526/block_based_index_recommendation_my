@@ -1,0 +1,187 @@
+{
+  "experiment_id": "TPCHskew_Test_Experiment",
+  "config_path": "/home/zzzxh/projects/index_selection_evaluation/block_based_index_recommendation_my/free-origin/index/rl_index_selection/experiments/tpchskew.json",
+  "comparison_performances": {
+    "test": {
+      "Extend": [],
+      "Extend_partition": [
+        [
+          58.34
+        ],
+        [
+          100.0
+        ],
+        [
+          67.79
+        ],
+        [
+          72.01
+        ],
+        [
+          100.0
+        ],
+        [
+          100.0
+        ],
+        [
+          94.62
+        ],
+        [
+          62.76
+        ],
+        [
+          55.37
+        ],
+        [
+          52.03
+        ]
+      ],
+      "DB2Adv": [],
+      "Slalom": [],
+      "Extend_partition_histogram": []
+    },
+    "validation": {
+      "Extend": [],
+      "Extend_partition": [
+        [
+          100.0
+        ],
+        [
+          100.0
+        ],
+        [
+          92.39
+        ],
+        [
+          86.05
+        ],
+        [
+          81.65
+        ],
+        [
+          73.57
+        ],
+        [
+          69.76
+        ],
+        [
+          68.7
+        ]
+      ],
+      "DB2Adv": [],
+      "Slalom": [],
+      "Extend_partition_histogram": []
+    }
+  },
+  "comparison_indexes": {
+    "Extend": [],
+    "Extend_partition": [
+      "I(C lineitem_1_prt_p2.l_receiptdate,C lineitem_1_prt_p2.l_discount,C lineitem_1_prt_p2.l_commitdate)",
+      "I(C lineitem_1_prt_p2.l_commitdate,C lineitem_1_prt_p2.l_quantity,C lineitem_1_prt_p2.l_suppkey)",
+      "I(C lineitem_1_prt_p1.l_receiptdate,C lineitem_1_prt_p1.l_quantity)",
+      "I(C lineitem_1_prt_p7.l_commitdate,C lineitem_1_prt_p7.l_receiptdate)",
+      "I(C lineitem_1_prt_p3.l_receiptdate,C lineitem_1_prt_p3.l_discount,C lineitem_1_prt_p3.l_partkey)",
+      "I(C lineitem_1_prt_p0.l_receiptdate)",
+      "I(C lineitem_1_prt_p2.l_partkey,C lineitem_1_prt_p2.l_quantity)",
+      "I(C lineitem_1_prt_p1.l_receiptdate,C lineitem_1_prt_p1.l_discount,C lineitem_1_prt_p1.l_partkey)",
+      "I(C lineitem_1_prt_p3.l_shipdate,C lineitem_1_prt_p3.l_quantity)",
+      "I(C lineitem_1_prt_p2.l_shipdate,C lineitem_1_prt_p2.l_quantity)",
+      "I(C lineitem_1_prt_p5.l_shipdate,C lineitem_1_prt_p5.l_quantity,C lineitem_1_prt_p5.l_discount)",
+      "I(C lineitem_1_prt_p7.l_commitdate,C lineitem_1_prt_p7.l_discount,C lineitem_1_prt_p7.l_partkey)",
+      "I(C lineitem_1_prt_p3.l_receiptdate,C lineitem_1_prt_p3.l_suppkey)",
+      "I(C lineitem_1_prt_p4.l_commitdate)",
+      "I(C lineitem_1_prt_p4.l_suppkey,C lineitem_1_prt_p4.l_commitdate,C lineitem_1_prt_p4.l_shipdate)",
+      "I(C lineitem_1_prt_p7.l_commitdate,C lineitem_1_prt_p7.l_quantity,C lineitem_1_prt_p7.l_suppkey)",
+      "I(C lineitem_1_prt_p5.l_commitdate,C lineitem_1_prt_p5.l_receiptdate,C lineitem_1_prt_p5.l_discount)",
+      "I(C lineitem_1_prt_p4.l_commitdate,C lineitem_1_prt_p4.l_quantity,C lineitem_1_prt_p4.l_suppkey)",
+      "I(C lineitem_1_prt_p1.l_commitdate,C lineitem_1_prt_p1.l_quantity,C lineitem_1_prt_p1.l_suppkey)",
+      "I(C lineitem_1_prt_p6.l_orderkey)",
+      "I(C lineitem_1_prt_p7.l_suppkey,C lineitem_1_prt_p7.l_commitdate)",
+      "I(C lineitem_1_prt_p6.l_receiptdate,C lineitem_1_prt_p6.l_discount,C lineitem_1_prt_p6.l_partkey)",
+      "I(C lineitem_1_prt_p3.l_partkey,C lineitem_1_prt_p3.l_quantity)",
+      "I(C lineitem_1_prt_p3.l_receiptdate,C lineitem_1_prt_p3.l_commitdate)",
+      "I(C lineitem_1_prt_p1.l_receiptdate,C lineitem_1_prt_p1.l_discount)",
+      "I(C lineitem_1_prt_p5.l_receiptdate,C lineitem_1_prt_p5.l_partkey)",
+      "I(C lineitem_1_prt_p3.l_commitdate,C lineitem_1_prt_p3.l_quantity,C lineitem_1_prt_p3.l_suppkey)",
+      "I(C lineitem_1_prt_p7.l_commitdate,C lineitem_1_prt_p7.l_receiptdate,C lineitem_1_prt_p7.l_discount)",
+      "I(C lineitem_1_prt_p1.l_commitdate)",
+      "I(C lineitem_1_prt_p0.l_commitdate)",
+      "I(C lineitem_1_prt_p1.l_suppkey,C lineitem_1_prt_p1.l_commitdate,C lineitem_1_prt_p1.l_shipdate)",
+      "I(C lineitem_1_prt_p2.l_commitdate,C lineitem_1_prt_p2.l_receiptdate,C lineitem_1_prt_p2.l_discount)",
+      "I(C lineitem_1_prt_p2.l_commitdate,C lineitem_1_prt_p2.l_receiptdate)",
+      "I(C lineitem_1_prt_p0.l_receiptdate,C lineitem_1_prt_p0.l_discount)",
+      "I(C lineitem_1_prt_p0.l_commitdate,C lineitem_1_prt_p0.l_receiptdate)",
+      "I(C lineitem_1_prt_p7.l_orderkey)",
+      "I(C lineitem_1_prt_p0.l_shipdate)",
+      "I(C lineitem_1_prt_p3.l_receiptdate,C lineitem_1_prt_p3.l_discount,C lineitem_1_prt_p3.l_commitdate)",
+      "I(C lineitem_1_prt_p4.l_receiptdate,C lineitem_1_prt_p4.l_commitdate,C lineitem_1_prt_p4.l_discount)",
+      "I(C lineitem_1_prt_p1.l_receiptdate,C lineitem_1_prt_p1.l_suppkey,C lineitem_1_prt_p1.l_commitdate)",
+      "I(C lineitem_1_prt_p4.l_receiptdate,C lineitem_1_prt_p4.l_quantity,C lineitem_1_prt_p4.l_discount)",
+      "I(C lineitem_1_prt_p6.l_commitdate,C lineitem_1_prt_p6.l_suppkey,C lineitem_1_prt_p6.l_discount)",
+      "I(C lineitem_1_prt_p1.l_partkey,C lineitem_1_prt_p1.l_quantity,C lineitem_1_prt_p1.l_shipdate)",
+      "I(C lineitem_1_prt_p0.l_commitdate,C lineitem_1_prt_p0.l_receiptdate,C lineitem_1_prt_p0.l_discount)",
+      "I(C lineitem_1_prt_p2.l_receiptdate,C lineitem_1_prt_p2.l_suppkey)",
+      "I(C lineitem_1_prt_p7.l_receiptdate)",
+      "I(C lineitem_1_prt_p3.l_orderkey)",
+      "I(C lineitem_1_prt_p6.l_commitdate,C lineitem_1_prt_p6.l_suppkey)",
+      "I(C lineitem_1_prt_p5.l_receiptdate,C lineitem_1_prt_p5.l_quantity,C lineitem_1_prt_p5.l_discount)",
+      "I(C lineitem_1_prt_p5.l_partkey,C lineitem_1_prt_p5.l_quantity)",
+      "I(C lineitem_1_prt_p1.l_commitdate,C lineitem_1_prt_p1.l_receiptdate,C lineitem_1_prt_p1.l_discount)",
+      "I(C lineitem_1_prt_p5.l_orderkey)",
+      "I(C lineitem_1_prt_p6.l_receiptdate,C lineitem_1_prt_p6.l_commitdate)",
+      "I(C lineitem_1_prt_p3.l_receiptdate)",
+      "I(C lineitem_1_prt_p2.l_receiptdate,C lineitem_1_prt_p2.l_discount,C lineitem_1_prt_p2.l_partkey)",
+      "I(C lineitem_1_prt_p6.l_shipdate,C lineitem_1_prt_p6.l_quantity)",
+      "I(C lineitem_1_prt_p2.l_receiptdate,C lineitem_1_prt_p2.l_partkey)",
+      "I(C lineitem_1_prt_p3.l_receiptdate,C lineitem_1_prt_p3.l_suppkey,C lineitem_1_prt_p3.l_commitdate)",
+      "I(C lineitem_1_prt_p0.l_receiptdate,C lineitem_1_prt_p0.l_discount,C lineitem_1_prt_p0.l_partkey)",
+      "I(C lineitem_1_prt_p7.l_partkey,C lineitem_1_prt_p7.l_quantity)",
+      "I(C lineitem_1_prt_p5.l_receiptdate,C lineitem_1_prt_p5.l_commitdate,C lineitem_1_prt_p5.l_suppkey)",
+      "I(C lineitem_1_prt_p0.l_commitdate,C lineitem_1_prt_p0.l_quantity)",
+      "I(C lineitem_1_prt_p7.l_receiptdate,C lineitem_1_prt_p7.l_suppkey)",
+      "I(C lineitem_1_prt_p4.l_commitdate,C lineitem_1_prt_p4.l_discount,C lineitem_1_prt_p4.l_receiptdate)",
+      "I(C lineitem_1_prt_p4.l_orderkey)",
+      "I(C lineitem_1_prt_p4.l_partkey,C lineitem_1_prt_p4.l_quantity)",
+      "I(C lineitem_1_prt_p3.l_receiptdate,C lineitem_1_prt_p3.l_partkey)",
+      "I(C lineitem_1_prt_p5.l_commitdate,C lineitem_1_prt_p5.l_quantity,C lineitem_1_prt_p5.l_suppkey)",
+      "I(C lineitem_1_prt_p2.l_orderkey)",
+      "I(C lineitem_1_prt_p6.l_commitdate,C lineitem_1_prt_p6.l_quantity,C lineitem_1_prt_p6.l_suppkey)",
+      "I(C lineitem_1_prt_p6.l_partkey,C lineitem_1_prt_p6.l_quantity)",
+      "I(C lineitem_1_prt_p6.l_receiptdate,C lineitem_1_prt_p6.l_quantity,C lineitem_1_prt_p6.l_discount)",
+      "I(C lineitem_1_prt_p1.l_orderkey)",
+      "I(C lineitem_1_prt_p7.l_receiptdate,C lineitem_1_prt_p7.l_discount,C lineitem_1_prt_p7.l_partkey)",
+      "I(C lineitem_1_prt_p0.l_orderkey)",
+      "I(C lineitem_1_prt_p5.l_commitdate)",
+      "I(C lineitem_1_prt_p7.l_receiptdate,C lineitem_1_prt_p7.l_quantity)",
+      "I(C lineitem_1_prt_p4.l_receiptdate,C lineitem_1_prt_p4.l_commitdate)"
+    ],
+    "DB2Adv": [],
+    "Slalom": [],
+    "Extend_partition_histogram": []
+  },
+  "validation_workloads_count": 8,
+  "testing_workloads_count": 10,
+  "validation_budgets": [
+    500,
+    1000,
+    1500,
+    2000,
+    3000,
+    5000,
+    7000,
+    10000
+  ],
+  "test_budgets": [
+    500,
+    1000,
+    1500,
+    2000,
+    2500,
+    3000,
+    4000,
+    5000,
+    6000,
+    8000,
+    10000
+  ]
+}

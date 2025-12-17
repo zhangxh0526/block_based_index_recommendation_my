@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="f060c5de-9843-48c8-a68c-f820c6625816" name="hp">
+        <fileTransfer accessType="SFTP" host="ms0801.utah.cloudlab.us" port="22" sshConfigId="b40500cd-fd41-4a43-b603-b595d09b5046" sshConfig="hp087" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
