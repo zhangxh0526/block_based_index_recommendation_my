@@ -1,0 +1,71 @@
+{
+  "id": "TPCDS_Test_Experiment",
+  "description": "Just a TPCDS Test Experiment",
+  "gym_version": 4,
+  "timesteps": 204800,
+  "random_seed": 1,
+  "parallel_environments": 1,
+  "pickle_cost_estimation_caches": false,
+  "action_manager": "BlockAwaredMultiColumnIndexActionManager",
+  "observation_manager": "BISLearnerObservationManager",
+  "reward_calculator": "RelativeDifferenceRelativeToStorageReward",
+  "max_steps_per_episode": 256,
+  "validation_frequency": 5120,
+  "filter_utilized_columns": false,
+  "max_index_width": 3,
+  "result_path": "../experiment_results",
+  "reenable_indexes": false,
+  "partition_num": 10,
+  "histogram_feature": 3,
+  "workload_embedder": {
+    "type": "PlanEmbedderLSIBOW",
+    "representation_size": 50
+  },
+  "rl_algorithm": {
+    "algorithm": "MaskablePPO",
+    "stable_baselines_version": 3,
+    "gamma": 0.5,
+    "policy": "MlpPolicy",
+    "model_architecture": {
+      "net_arch": [
+        {
+          "vf": [512,512],
+          "pi": [256,256]
+        }
+      ]
+    },
+    "args": {
+      "n_steps": 64
+    }
+  },
+  "workload": {
+    "benchmark": "TPCDS",
+    "scale_factor": 10,
+    "training_with_budget": false,
+    "size": 20,
+    "varying_frequencies": true,
+    "training_instances": 2000,
+    "test_number_of_workloads": 0,
+    "validation_testing": {
+      "number_of_workloads": 1,
+      "unknown_query_probabilities": [0.0]
+    },
+    "similar_workloads": false,
+    "_query_class_change_frequency": 3,
+    "excluded_query_classes": [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+    "unknown_queries": 0,
+    "unseen_query": false
+  },
+  "comparison_algorithms": ["extend","slalom"],
+  "budgets": {
+    "training": false,
+    "validation_and_testing": [500, 1000, 1500, 2000, 2500, 3000, 4000, 5000, 6000, 8000, 10000],
+    "validation": [500, 1000, 1500, 2000, 3000, 5000, 7000, 10000]
+  },
+  "column_filters": {
+    "TableNumRowsFilter": 10000
+  },
+  "used_tables": {
+    "names": ["store_sales"]
+  }
+}

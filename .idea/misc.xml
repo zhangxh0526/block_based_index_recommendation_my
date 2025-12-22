@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Black">
+    <option name="sdkName" value="Remote Python 3.7.9 (sftp://yulai@hp087.utah.cloudlab.us:22/mydata/env/python37/bin/python3.7)" />
+  </component>
+  <component name="JavaScriptSettings">
+    <option name="languageLevel" value="ES6" />
+  </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="block_based_index_recommendation-improve_train_speed" project-jdk-type="Python SDK" />
+</project>
