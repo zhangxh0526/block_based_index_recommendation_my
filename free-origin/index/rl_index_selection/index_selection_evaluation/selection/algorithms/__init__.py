@@ -1,2 +1,4 @@
 from .extend_algorithm_global_independent import ExtendAlgorithmGlobalIndependent
 from .extend_algorithm_global import ExtendAlgorithmGlobal
+from .extend_algorithm_partition_priority import ExtendAlgorithmPartitionPriority
+from .extend_algorithm_partition_sa import ExtendAlgorithmPartitionSA

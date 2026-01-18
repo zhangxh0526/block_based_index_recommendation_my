@@ -15,6 +15,12 @@ from index_selection_evaluation.selection.algorithms.extend_algorithm_partition_
 from index_selection_evaluation.selection.algorithms.extend_algorithm_global_independent import \
     ExtendAlgorithmGlobalIndependent
 from index_selection_evaluation.selection.algorithms.extend_algorithm_global import ExtendAlgorithmGlobal
+from index_selection_evaluation.selection.algorithms.extend_algorithm_partition_priority import (
+    ExtendAlgorithmPartitionPriority,
+)
+from index_selection_evaluation.selection.algorithms.extend_algorithm_partition_sa import (
+    ExtendAlgorithmPartitionSA,
+)
 
 sys.path.append("..")
 import PettingZoo.custom_environment.env.index_environment as eie
@@ -70,6 +76,8 @@ class Experiment(object):
                 "Extend_partition_histogram": [],
                 "Extend_global_independent": [],
                 "Extend_global": [],
+                "Extend_partition_priority": [],
+                "Extend_partition_sa": [],
             },
             "validation": {
                 "Extend": [],
@@ -79,6 +87,8 @@ class Experiment(object):
                 "Extend_partition_histogram": [],
                 "Extend_global_independent": [],
                 "Extend_global": [],
+                "Extend_partition_priority": [],
+                "Extend_partition_sa": [],
             },
         }
         # 初始化比较索引的字典，包含不同算法的索引集合
@@ -90,6 +100,8 @@ class Experiment(object):
             "Extend_partition_histogram": set(),
             "Extend_global_independent": set(),
             "Extend_global": set(),
+            "Extend_partition_priority": set(),
+            "Extend_partition_sa": set(),
         }
         self.comparison_index_details = {
             "test": {key: [] for key in self.comparison_indexes.keys()},
@@ -710,6 +722,10 @@ class Experiment(object):
             self._compare_extend_global_independent()
         if "extend_global" in self.config["comparison_algorithms"]:
             self._compare_extend_global()
+        if "extend_partition_priority" in self.config["comparison_algorithms"]:
+            self._compare_extend_partition_priority()
+        if "extend_partition_sa" in self.config["comparison_algorithms"]:
+            self._compare_extend_partition_sa()
         # 如果配置文件中指定了 "slalom" 算法，则调用 _compare_slalom 方法进行比较
         if "slalom" in self.config["comparison_algorithms"]:
             self._compare_slalom()
@@ -982,39 +998,103 @@ class Experiment(object):
             # 记录当前测试工作负载的最终成本比例
             self.comparison_performances[run_type]["Extend_partition"][-1].append(extend_algorithm.final_cost_proportion)
 
-        # 定义运行类型为验证
-        run_type = "validation"
-        # 遍历验证工作负载列表
-        for index, validation_wl in enumerate(self.workload_generator.wl_validation[0]):
-            # 为当前运行类型和算法添加一个空列表，用于存储性能数据
-            self.comparison_performances[run_type]["Extend_partition"].append([])
+    def _compare_extend_partition_priority(self):
+        """使用分区优先级填充 + OCW 分配的 Extend 变体。"""
 
-            # 定义 Extend 算法的参数
-            parameters = {
-                # 设置预算，单位为 MB
-                "budget_MB": validation_wl.budget,
-                # 设置最大索引宽度
+        def _params(budget_mb):
+            params = {
+                "budget_MB": budget_mb,
                 "max_index_width": self.config["max_index_width"],
-                # 设置最小成本改进阈值
                 "min_cost_improvement": 1.0003,
-                "partition_num": self.config["partition_num"]
+                "partition_num": self.config["partition_num"],
             }
-            # 重置 Extend 算法，传入参数
-            extend_algorithm.reset(parameters)
-            # 计算当前验证工作负载的最佳索引
-            indexes = extend_algorithm.calculate_best_indexes(validation_wl)
-            # 将计算得到的索引添加到比较索引集合中
-            self.comparison_indexes["Extend_partition"] |= frozenset(indexes)
+            if "priority_allocation" in self.config:
+                params.update(self.config["priority_allocation"])
+            return params
+
+        self.evaluated_workloads = set()
+        connector = PostgresDatabaseConnector(self.schema.database_name, autocommit=True)
+        connector.drop_indexes()
+        algorithm = ExtendAlgorithmPartitionPriority(connector)
+
+        run_type = "test"
+        for test_wl in self.workload_generator.wl_testing[0]:
+            self.comparison_performances[run_type]["Extend_partition_priority"].append([])
+
+            parameters = _params(test_wl.budget)
+            algorithm.reset(parameters)
+            indexes = algorithm.calculate_best_indexes(test_wl)
+            self.comparison_indexes["Extend_partition_priority"] |= frozenset(indexes)
             self._record_index_selection(
                 run_type,
-                "Extend_partition",
-                validation_wl.budget,
+                "Extend_partition_priority",
+                test_wl.budget,
                 indexes,
-                extend_algorithm.final_cost_proportion,
+                algorithm.final_cost_proportion,
             )
 
-            # 记录当前验证工作负载的最终成本比例
-            self.comparison_performances[run_type]["Extend_partition"][-1].append(extend_algorithm.final_cost_proportion)
+            self.comparison_performances[run_type]["Extend_partition_priority"][-1].append(
+                algorithm.final_cost_proportion
+            )
+
+    def _compare_extend_partition_sa(self):
+        """使用退火式范围衰减 + 全局单赢家锦标赛的分区 Extend 变体。"""
+
+        def _params(budget_mb):
+            params = {
+                "budget_MB": budget_mb,
+                "max_index_width": self.config["max_index_width"],
+                "min_cost_improvement": 1.0003,
+                "partition_num": self.config["partition_num"],
+            }
+            if "sa_allocation" in self.config:
+                params.update(self.config["sa_allocation"])
+            return params
+
+        self.evaluated_workloads = set()
+        connector = PostgresDatabaseConnector(self.schema.database_name, autocommit=True)
+        connector.drop_indexes()
+        algorithm = ExtendAlgorithmPartitionSA(connector)
+
+        run_type = "test"
+        for test_wl in self.workload_generator.wl_testing[0]:
+            self.comparison_performances[run_type]["Extend_partition_sa"].append([])
+
+            parameters = _params(test_wl.budget)
+            algorithm.reset(parameters)
+            indexes = algorithm.calculate_best_indexes(test_wl)
+            self.comparison_indexes["Extend_partition_sa"] |= frozenset(indexes)
+            self._record_index_selection(
+                run_type,
+                "Extend_partition_sa",
+                test_wl.budget,
+                indexes,
+                algorithm.final_cost_proportion,
+            )
+
+            self.comparison_performances[run_type]["Extend_partition_sa"][-1].append(
+                algorithm.final_cost_proportion
+            )
+
+        run_type = "validation"
+        for validation_wl in self.workload_generator.wl_validation[0]:
+            self.comparison_performances[run_type]["Extend_partition_sa"].append([])
+
+            parameters = _params(validation_wl.budget)
+            algorithm.reset(parameters)
+            indexes = algorithm.calculate_best_indexes(validation_wl)
+            self.comparison_indexes["Extend_partition_sa"] |= frozenset(indexes)
+            self._record_index_selection(
+                run_type,
+                "Extend_partition_sa",
+                validation_wl.budget,
+                indexes,
+                algorithm.final_cost_proportion,
+            )
+
+            self.comparison_performances[run_type]["Extend_partition_sa"][-1].append(
+                algorithm.final_cost_proportion
+            )
 
     def _compare_extend_partition_histogram(self):
         """

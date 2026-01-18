@@ -56,7 +56,10 @@
     "unknown_queries": 0,
     "unseen_query": false
   },
-  "comparison_algorithms": [ "extend_global"],
+  "comparison_algorithms": ["extend", "extend_global", "extend_partition_sa"],
+  "sa_allocation": {
+    "log_top_n": 5
+  },
   "budgets": {
     "training": false,
     "validation_and_testing": [500, 1000, 1500, 2000, 2500, 3000, 4000, 5000, 6000, 8000, 10000],
