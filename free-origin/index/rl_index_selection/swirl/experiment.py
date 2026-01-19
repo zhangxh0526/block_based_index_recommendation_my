@@ -794,7 +794,18 @@ class Experiment(object):
             "size_mb": size_mb,
         }
 
-    def _record_index_selection(self, run_type, algo_key, budget, indexes, final_cost_proportion):
+    def _make_runtime_metrics(self, algorithm):
+        if algorithm is None:
+            return {}
+        cost_eval = getattr(algorithm, "cost_evaluation", None)
+        return {
+            "calculation_time": getattr(algorithm, "calculation_time", None),
+            "cost_evaluation_time": getattr(algorithm, "cost_evaluation_time", None),
+            "cost_requests": getattr(cost_eval, "cost_requests", None) if cost_eval else None,
+            "cache_hits": getattr(cost_eval, "cache_hits", None) if cost_eval else None,
+        }
+
+    def _record_index_selection(self, run_type, algo_key, budget, indexes, final_cost_proportion, runtime_metrics=None):
         """
         记录单次工作负载下某算法的索引选择，用于后续按预算汇总。
         """
@@ -804,18 +815,21 @@ class Experiment(object):
         )
         total_size_mb = round(total_size_bytes / (1024 * 1024), 2) if index_details else None
 
-        self.comparison_index_details[run_type][algo_key].append(
-            {
-                "budget": budget,
-                "final_cost_proportion": float(final_cost_proportion)
-                if final_cost_proportion is not None
-                else None,
-                "indexes": index_details,
-                "index_count": len(index_details),
-                "total_index_size_bytes": total_size_bytes if index_details else 0,
-                "total_index_size_mb": total_size_mb,
-            }
-        )
+        metrics = runtime_metrics or {}
+
+        entry = {
+            "budget": budget,
+            "final_cost_proportion": float(final_cost_proportion)
+            if final_cost_proportion is not None
+            else None,
+            "indexes": index_details,
+            "index_count": len(index_details),
+            "total_index_size_bytes": total_size_bytes if index_details else 0,
+            "total_index_size_mb": total_size_mb,
+        }
+        entry.update({k: v for k, v in metrics.items() if v is not None})
+
+        self.comparison_index_details[run_type][algo_key].append(entry)
 
     def _compare_extend(self):
         self.evaluated_workloads = set()
@@ -837,7 +851,12 @@ class Experiment(object):
             indexes = extend_algorithm.calculate_best_indexes(test_wl)
             self.comparison_indexes["Extend"] |= frozenset(indexes)
             self._record_index_selection(
-                run_type, "Extend", test_wl.budget, indexes, extend_algorithm.final_cost_proportion
+                run_type,
+                "Extend",
+                test_wl.budget,
+                indexes,
+                extend_algorithm.final_cost_proportion,
+                runtime_metrics=self._make_runtime_metrics(extend_algorithm),
             )
 
             self.comparison_performances[run_type]["Extend"][-1].append(extend_algorithm.final_cost_proportion)
@@ -855,7 +874,12 @@ class Experiment(object):
             indexes = extend_algorithm.calculate_best_indexes(validation_wl)
             self.comparison_indexes["Extend"] |= frozenset(indexes)
             self._record_index_selection(
-                run_type, "Extend", validation_wl.budget, indexes, extend_algorithm.final_cost_proportion
+                run_type,
+                "Extend",
+                validation_wl.budget,
+                indexes,
+                extend_algorithm.final_cost_proportion,
+                runtime_metrics=self._make_runtime_metrics(extend_algorithm),
             )
 
             self.comparison_performances[run_type]["Extend"][-1].append(extend_algorithm.final_cost_proportion)
@@ -887,6 +911,7 @@ class Experiment(object):
                 test_wl.budget,
                 indexes,
                 gi_algorithm.final_cost_proportion,
+                runtime_metrics=self._make_runtime_metrics(gi_algorithm),
             )
 
             self.comparison_performances[run_type]["Extend_global_independent"][-1].append(
@@ -920,6 +945,7 @@ class Experiment(object):
                 test_wl.budget,
                 indexes,
                 gg_algorithm.final_cost_proportion,
+                runtime_metrics=self._make_runtime_metrics(gg_algorithm),
             )
 
             self.comparison_performances[run_type]["Extend_global"][-1].append(
@@ -944,6 +970,7 @@ class Experiment(object):
                 validation_wl.budget,
                 indexes,
                 gg_algorithm.final_cost_proportion,
+                runtime_metrics=self._make_runtime_metrics(gg_algorithm),
             )
 
             self.comparison_performances[run_type]["Extend_global"][-1].append(
@@ -992,7 +1019,12 @@ class Experiment(object):
             # 将计算得到的索引添加到比较索引集合中
             self.comparison_indexes["Extend_partition"] |= frozenset(indexes)
             self._record_index_selection(
-                run_type, "Extend_partition", test_wl.budget, indexes, extend_algorithm.final_cost_proportion
+                run_type,
+                "Extend_partition",
+                test_wl.budget,
+                indexes,
+                extend_algorithm.final_cost_proportion,
+                runtime_metrics=self._make_runtime_metrics(extend_algorithm),
             )
 
             # 记录当前测试工作负载的最终成本比例
@@ -1031,6 +1063,7 @@ class Experiment(object):
                 test_wl.budget,
                 indexes,
                 algorithm.final_cost_proportion,
+                runtime_metrics=self._make_runtime_metrics(algorithm),
             )
 
             self.comparison_performances[run_type]["Extend_partition_priority"][-1].append(
@@ -1070,6 +1103,7 @@ class Experiment(object):
                 test_wl.budget,
                 indexes,
                 algorithm.final_cost_proportion,
+                runtime_metrics=self._make_runtime_metrics(algorithm),
             )
 
             self.comparison_performances[run_type]["Extend_partition_sa"][-1].append(
@@ -1090,6 +1124,7 @@ class Experiment(object):
                 validation_wl.budget,
                 indexes,
                 algorithm.final_cost_proportion,
+                runtime_metrics=self._make_runtime_metrics(algorithm),
             )
 
             self.comparison_performances[run_type]["Extend_partition_sa"][-1].append(

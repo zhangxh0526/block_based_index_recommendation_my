@@ -4,6 +4,8 @@ import re
 from pathlib import Path
 
 import matplotlib.pyplot as plt
+import matplotlib.patheffects as pe
+from matplotlib.patches import Patch
 
 
 def _find_latest_results(base_dir: Path, experiment_id: str) -> Path:
@@ -49,13 +51,13 @@ def _ensure_output_dir(output_dir: Path) -> None:
 
 
 def _plot_line(budgets, data, output_path: Path) -> None:
+    plt.rcParams["hatch.linewidth"] = 0.9
     plt.figure(figsize=(9, 5))
     for label, values in data.items():
         plt.plot(budgets, values, marker="o", label=label)
-    plt.xlabel("Budget Constraint (MB)")
-    plt.ylabel("Final Cost Proportion (%)")
-    plt.title("Workload Performance vs Budget")
-    plt.grid(True, linestyle="--", alpha=0.4)
+    plt.xlabel("Budget (MB)")
+    plt.ylabel("Relative workload cost (% of without index)")
+    plt.grid(True, linestyle="--", alpha=0.35)
     plt.legend()
     plt.tight_layout()
     plt.savefig(output_path, dpi=200)
@@ -63,22 +65,75 @@ def _plot_line(budgets, data, output_path: Path) -> None:
 
 
 def _plot_bar(budgets, data, output_path: Path) -> None:
-    plt.figure(figsize=(10, 5))
+    plt.rcParams["hatch.linewidth"] = 0.9
+    plt.figure(figsize=(11, 5))
+    ax = plt.gca()
     labels = list(data.keys())
     width = 0.8 / max(len(labels), 1)
     x_positions = list(range(len(budgets)))
 
+    palette = ["#7FB3D5", "#F5B041", "#E67E73"]
+    bar_hatches = ["/", "-", None]
+    legend_hatches = ["///", "||", None]
+
     for idx, label in enumerate(labels):
         offset = (idx - (len(labels) - 1) / 2) * width
         values = data[label]
-        plt.bar([x + offset for x in x_positions], values, width=width, label=label)
+        bars = ax.bar(
+            [x + offset for x in x_positions],
+            values,
+            width=width,
+            label=label,
+            color=palette[idx % len(palette)],
+            edgecolor="#2C3E50",
+            linewidth=0.9,
+            hatch=bar_hatches[idx % len(bar_hatches)],
+            alpha=0.9,
+            zorder=3,
+        )
+        for rect in bars:
+            rect.set_path_effects(
+                [pe.SimplePatchShadow(offset=(1.5, -1.5), alpha=0.25), pe.Normal()]
+            )
 
-    plt.xticks(x_positions, [str(b) for b in budgets])
-    plt.xlabel("Budget Constraint (MB)")
-    plt.ylabel("Final Cost Proportion (%)")
-    plt.title("Workload Performance vs Budget (Bar)")
-    plt.grid(axis="y", linestyle="--", alpha=0.4)
-    plt.legend()
+    ax.set_xticks(x_positions)
+    ax.set_xticklabels([str(b) for b in budgets])
+    ax.set_xlabel("Budget (MB)")
+    ax.set_ylabel("Relative workload cost (% of without index)")
+    ax.grid(axis="y", linestyle="--", alpha=0.35, zorder=0)
+    ax.set_axisbelow(True)
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    legend_handles = [
+        Patch(
+            facecolor=palette[0],
+            edgecolor="#2C3E50",
+            linewidth=0.9,
+            hatch=legend_hatches[0],
+            label=labels[0],
+        ),
+        Patch(
+            facecolor=palette[1],
+            edgecolor="#2C3E50",
+            linewidth=0.9,
+            hatch=legend_hatches[1],
+            label=labels[1],
+        ),
+        Patch(
+            facecolor=palette[2],
+            edgecolor="#333333",
+            linewidth=0.7,
+            hatch=legend_hatches[2] or "",
+            label=labels[2],
+        ),
+    ]
+    ax.legend(
+        handles=legend_handles,
+        frameon=True,
+        handlelength=1.4,
+        handleheight=0.9,
+        borderaxespad=0.6,
+    )
     plt.tight_layout()
     plt.savefig(output_path, dpi=200)
     plt.close()
@@ -129,17 +184,13 @@ def main() -> None:
         raise ValueError("No validation_budgets found in results.")
 
     algo_map = {
-        "No Index": None,
         "Extend": "Extend",
-        "Extend_global": "Extend_global",
-        "Extend_partition_sa": "Extend_partition_sa",
+        "Extend global": "Extend_global",
+        "Extend partition SA": "Extend_partition_sa",
     }
 
     data = {}
     for label, key in algo_map.items():
-        if key is None:
-            data[label] = [100.0 for _ in budgets]
-            continue
         series = _extract_budget_series(results, key)
         data[label] = [series.get(budget) for budget in budgets]
 
