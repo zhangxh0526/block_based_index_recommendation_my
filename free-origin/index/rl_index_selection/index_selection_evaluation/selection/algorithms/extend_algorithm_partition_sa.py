@@ -17,6 +17,10 @@ DEFAULT_PARAMETERS = {
     "max_runtime_minutes": 60 * 24,
     # 退温控制
     "anneal_alpha": 3.0,
+    # Ablation switches
+    "use_ocw": True,
+    "use_dynamic_k": True,
+    "use_gap_filling": True,
 }
 
 
@@ -51,6 +55,10 @@ class ExtendAlgorithmPartitionSA(SelectionAlgorithm):
         self.cost_evaluation_time = 0
         self.partition_num = self.parameters["partition_num"]
         self.anneal_alpha = float(self.parameters.get("anneal_alpha", 3.0))
+        self.use_ocw = bool(self.parameters.get("use_ocw", True))
+        self.use_dynamic_k = bool(self.parameters.get("use_dynamic_k", True))
+        self.use_gap_filling = bool(self.parameters.get("use_gap_filling", True))
+        self.variant_name = str(self.parameters.get("variant_name", "full"))
 
     def _should_stop_due_to_time(self):
         current_time = time.time()
@@ -65,6 +73,8 @@ class ExtendAlgorithmPartitionSA(SelectionAlgorithm):
     # 退温函数：根据剩余预算比例决定活跃分区数
     def _calculate_active_k(self, remaining_ratio):
         n = self.partition_num
+        if not self.use_dynamic_k:
+            return n
         if remaining_ratio <= 0.1:
             return 1
         # 归一化指数曲线：ratio=1 -> k=n, ratio->0 -> k->1
@@ -134,7 +144,10 @@ class ExtendAlgorithmPartitionSA(SelectionAlgorithm):
                     plan_rows = 0
                     plan_cost = 0
 
-                selectivity_factor = 1.0 - (plan_rows / max(part_total_rows, 1))
+                if self.use_ocw:
+                    selectivity_factor = 1.0 - (plan_rows / max(part_total_rows, 1))
+                else:
+                    selectivity_factor = 1.0
                 score = plan_cost * selectivity_factor * getattr(query, "frequency", 1)
                 scores[partition_id] += max(score, 0)
         return scores
@@ -223,6 +236,13 @@ class ExtendAlgorithmPartitionSA(SelectionAlgorithm):
         self.cost_evaluation.what_if.drop_all_simulated_indexes()
         self.cost_evaluation_time = 0
         logging.info("Calculating best indexes Extend_partition_SA (Batch + GapFilling)")
+        logging.info(
+            "SA variant=%s, use_ocw=%s, use_dynamic_k=%s, use_gap_filling=%s",
+            self.variant_name,
+            self.use_ocw,
+            self.use_dynamic_k,
+            self.use_gap_filling,
+        )
         self.workload = workload
 
         single_attribute_index_candidates = workload.potential_indexes()
@@ -299,7 +319,10 @@ class ExtendAlgorithmPartitionSA(SelectionAlgorithm):
                 if all_too_expensive:
                     need_fallback = True
 
-            if need_fallback:
+            if need_fallback and not self.use_gap_filling:
+                logging.info("Active K=%s exhausted/expensive but gap-filling is disabled.", k)
+
+            if need_fallback and self.use_gap_filling:
                 if log_top_n > 0:
                     fallback_reasons = []
                     if not round_candidates:

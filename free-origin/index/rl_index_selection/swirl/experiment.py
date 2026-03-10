@@ -1073,6 +1073,50 @@ class Experiment(object):
     def _compare_extend_partition_sa(self):
         """使用退火式范围衰减 + 全局单赢家锦标赛的分区 Extend 变体。"""
 
+        variant_map = {
+            "full": {
+                "variant_name": "full",
+                "use_ocw": True,
+                "use_dynamic_k": True,
+                "use_gap_filling": True,
+            },
+            "w_o_ocw": {
+                "variant_name": "w_o_ocw",
+                "use_ocw": False,
+                "use_dynamic_k": True,
+                "use_gap_filling": True,
+            },
+            "w_o_dynamick": {
+                "variant_name": "w_o_dynamick",
+                "use_ocw": True,
+                "use_dynamic_k": False,
+                "use_gap_filling": True,
+            },
+            "w_o_gapfilling": {
+                "variant_name": "w_o_gapfilling",
+                "use_ocw": True,
+                "use_dynamic_k": True,
+                "use_gap_filling": False,
+            },
+        }
+
+        sa_variant = str(self.config.get("sa_variant", "full")).strip().lower()
+        if sa_variant not in variant_map:
+            raise ValueError(
+                f"Unknown sa_variant={sa_variant}. Supported: {sorted(variant_map.keys())}"
+            )
+        sa_variant_params = variant_map[sa_variant]
+
+        fixed_budget_mb = self.config.get("sa_fixed_budget_mb")
+        if fixed_budget_mb is not None:
+            fixed_budget_mb = int(fixed_budget_mb)
+
+        logging.info(
+            "Running Extend_partition_sa variant=%s, fixed_budget_mb=%s",
+            sa_variant,
+            fixed_budget_mb,
+        )
+
         def _params(budget_mb):
             params = {
                 "budget_MB": budget_mb,
@@ -1082,6 +1126,7 @@ class Experiment(object):
             }
             if "sa_allocation" in self.config:
                 params.update(self.config["sa_allocation"])
+            params.update(sa_variant_params)
             return params
 
         self.evaluated_workloads = set()
@@ -1093,14 +1138,16 @@ class Experiment(object):
         for test_wl in self.workload_generator.wl_testing[0]:
             self.comparison_performances[run_type]["Extend_partition_sa"].append([])
 
-            parameters = _params(test_wl.budget)
+            budget_mb = fixed_budget_mb if fixed_budget_mb is not None else test_wl.budget
+            test_wl.budget = budget_mb
+            parameters = _params(budget_mb)
             algorithm.reset(parameters)
             indexes = algorithm.calculate_best_indexes(test_wl)
             self.comparison_indexes["Extend_partition_sa"] |= frozenset(indexes)
             self._record_index_selection(
                 run_type,
                 "Extend_partition_sa",
-                test_wl.budget,
+                budget_mb,
                 indexes,
                 algorithm.final_cost_proportion,
                 runtime_metrics=self._make_runtime_metrics(algorithm),
@@ -1114,14 +1161,16 @@ class Experiment(object):
         for validation_wl in self.workload_generator.wl_validation[0]:
             self.comparison_performances[run_type]["Extend_partition_sa"].append([])
 
-            parameters = _params(validation_wl.budget)
+            budget_mb = fixed_budget_mb if fixed_budget_mb is not None else validation_wl.budget
+            validation_wl.budget = budget_mb
+            parameters = _params(budget_mb)
             algorithm.reset(parameters)
             indexes = algorithm.calculate_best_indexes(validation_wl)
             self.comparison_indexes["Extend_partition_sa"] |= frozenset(indexes)
             self._record_index_selection(
                 run_type,
                 "Extend_partition_sa",
-                validation_wl.budget,
+                budget_mb,
                 indexes,
                 algorithm.final_cost_proportion,
                 runtime_metrics=self._make_runtime_metrics(algorithm),

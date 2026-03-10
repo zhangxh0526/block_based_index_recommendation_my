@@ -4,6 +4,8 @@ import re
 from pathlib import Path
 
 import matplotlib.pyplot as plt
+import matplotlib.patheffects as pe
+from matplotlib.patches import Patch
 
 
 def _find_latest_results(base_dir: Path, experiment_id: str) -> Path:
@@ -56,11 +58,86 @@ def _plot_line(budgets, data, output_path: Path, ylabel: str, title: str) -> Non
     plt.figure(figsize=(9, 5))
     for label, values in data.items():
         plt.plot(budgets, values, marker="o", label=label)
-    plt.xlabel("Budget Constraint (MB)")
+    plt.xlabel("Budget (MB)")
     plt.ylabel(ylabel)
-    plt.title(title)
     plt.grid(True, linestyle="--", alpha=0.4)
     plt.legend()
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=200)
+    plt.close()
+
+
+def _plot_bar(budgets, data, output_path: Path, ylabel: str) -> None:
+    plt.rcParams["hatch.linewidth"] = 0.9
+    plt.figure(figsize=(11, 5))
+    ax = plt.gca()
+    labels = list(data.keys())
+    width = 0.8 / max(len(labels), 1)
+    x_positions = list(range(len(budgets)))
+
+    palette = ["#7FB3D5", "#F5B041", "#E67E73"]
+    bar_hatches = ["/", "-", None]
+    legend_hatches = ["///", "||", None]
+
+    for idx, label in enumerate(labels):
+        offset = (idx - (len(labels) - 1) / 2) * width
+        values = data[label]
+        bars = ax.bar(
+            [x + offset for x in x_positions],
+            values,
+            width=width,
+            label=label,
+            color=palette[idx % len(palette)],
+            edgecolor="#2C3E50",
+            linewidth=0.9,
+            hatch=bar_hatches[idx % len(bar_hatches)],
+            alpha=0.9,
+            zorder=3,
+        )
+        for rect in bars:
+            rect.set_path_effects(
+                [pe.SimplePatchShadow(offset=(1.5, -1.5), alpha=0.25), pe.Normal()]
+            )
+
+    ax.set_xticks(x_positions)
+    ax.set_xticklabels([str(b) for b in budgets])
+    ax.set_xlabel("Budget (MB)")
+    ax.set_ylabel(ylabel)
+    ax.grid(axis="y", linestyle="--", alpha=0.35, zorder=0)
+    ax.set_axisbelow(True)
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+
+    legend_handles = [
+        Patch(
+            facecolor=palette[0],
+            edgecolor="#333333",
+            linewidth=0.7,
+            hatch=legend_hatches[0],
+            label=labels[0],
+        ),
+        Patch(
+            facecolor=palette[1],
+            edgecolor="#333333",
+            linewidth=0.7,
+            hatch=legend_hatches[1],
+            label=labels[1],
+        ),
+        Patch(
+            facecolor=palette[2],
+            edgecolor="#333333",
+            linewidth=0.7,
+            hatch=legend_hatches[2] or "",
+            label=labels[2],
+        ),
+    ]
+    ax.legend(
+        handles=legend_handles,
+        frameon=True,
+        handlelength=1.4,
+        handleheight=0.9,
+        borderaxespad=0.6,
+    )
     plt.tight_layout()
     plt.savefig(output_path, dpi=200)
     plt.close()
@@ -117,14 +194,14 @@ def main() -> None:
     }
 
     metrics = {
-        "calculation_time": ("Selection Time (s)", "Algorithm Selection Time vs Budget"),
-        "cost_evaluation_time": ("Cost Evaluation Time (s)", "Cost Evaluation Time vs Budget"),
+        "calculation_time": "Selection Time (s)",
+        "cost_evaluation_time": "Cost Evaluation Time (s)",
     }
 
     output_dir = Path(args.output_dir)
     _ensure_output_dir(output_dir)
 
-    for metric, (ylabel, title) in metrics.items():
+    for metric, ylabel in metrics.items():
         data = {}
         for label, key in algo_map.items():
             series = _extract_runtime_series(results, key, metric)
@@ -136,7 +213,13 @@ def main() -> None:
             data,
             output_dir / f"overhead_{metric}_line.png",
             ylabel,
-            title,
+            "",
+        )
+        _plot_bar(
+            budgets,
+            data,
+            output_dir / f"overhead_{metric}_bar.png",
+            ylabel,
         )
 
     print(f"Results loaded from: {results_path}")
