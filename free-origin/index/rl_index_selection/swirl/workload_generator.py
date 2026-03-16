@@ -18,7 +18,8 @@ from index_selection_evaluation.selection.workload import Query, Workload
 
 from workload_embedder import WorkloadEmbedder
 
-QUERY_PATH = "query_files"
+import os
+QUERY_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "query_files")
 
 
 class WorkloadGenerator(object):
@@ -248,7 +249,7 @@ class WorkloadGenerator(object):
         """
         # 打开所有查询文件
         query_files = [
-            open(f"../{QUERY_PATH}/{self.benchmark}/{self.benchmark}_{file_number}.txt", "r")
+            open(f"{QUERY_PATH}/TPCHskew/TPCHskew_{file_number}.txt" if self.benchmark.lower() == "tpchskew" else f"{QUERY_PATH}/{self.benchmark}/{self.benchmark}_{file_number}.txt", "r")
             for file_number in range(1, self.number_of_query_classes + 1)
         ]
 

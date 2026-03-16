@@ -1,0 +1,13 @@
+                                                                                List of databases
+               Name                |  Owner   | Encoding |   Collate   |    Ctype    |   Access privileges   |  Size   | Tablespace |                Description                 
+-----------------------------------+----------+----------+-------------+-------------+-----------------------+---------+------------+--------------------------------------------
+ indexselection_tpch___1           | zzzxh    | UTF8     | en_US.UTF-8 | en_US.UTF-8 |                       | 2573 MB | pg_default | 
+ indexselection_tpchskew___10_z1   | zzzxh    | UTF8     | en_US.UTF-8 | en_US.UTF-8 |                       | 25 GB   | pg_default | 
+ indexselection_tpchskew___10_z1_5 | zzzxh    | UTF8     | en_US.UTF-8 | en_US.UTF-8 |                       | 25 GB   | pg_default | 
+ postgres                          | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 |                       | 7993 kB | pg_default | default administrative connection database
+ template0                         | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres          +| 7833 kB | pg_default | unmodifiable empty database
+                                   |          |          |             |             | postgres=CTc/postgres |         |            | 
+ template1                         | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres          +| 7833 kB | pg_default | default template for new databases
+                                   |          |          |             |             | postgres=CTc/postgres |         |            | 
+(6 rows)
+

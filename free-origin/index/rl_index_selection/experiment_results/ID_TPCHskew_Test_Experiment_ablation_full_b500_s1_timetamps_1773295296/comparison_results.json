@@ -1,0 +1,1053 @@
+{
+  "experiment_id": "TPCHskew_Test_Experiment_ablation_full_b500_s1",
+  "config_path": "/home/zzzxh/projects/block_based_index_recommendation_my/analysis/tmp_configs/tpchskew_ablation_full_b500_s1.json",
+  "comparison_performances": {
+    "test": {
+      "Extend": [],
+      "Extend_partition": [],
+      "DB2Adv": [],
+      "Slalom": [],
+      "Extend_partition_histogram": [],
+      "Extend_global_independent": [],
+      "Extend_global": [],
+      "Extend_partition_priority": [],
+      "Extend_partition_sa": []
+    },
+    "validation": {
+      "Extend": [],
+      "Extend_partition": [],
+      "DB2Adv": [],
+      "Slalom": [],
+      "Extend_partition_histogram": [],
+      "Extend_global_independent": [],
+      "Extend_global": [],
+      "Extend_partition_priority": [],
+      "Extend_partition_sa": [
+        [
+          93.85
+        ],
+        [
+          94.21
+        ],
+        [
+          93.95
+        ],
+        [
+          93.45
+        ],
+        [
+          87.12
+        ],
+        [
+          94.08
+        ],
+        [
+          90.6
+        ],
+        [
+          94.17
+        ],
+        [
+          91.96
+        ],
+        [
+          94.42
+        ]
+      ]
+    }
+  },
+  "comparison_indexes": {
+    "Extend": [],
+    "Extend_partition": [],
+    "DB2Adv": [],
+    "Slalom": [],
+    "Extend_partition_histogram": [],
+    "Extend_global_independent": [],
+    "Extend_global": [],
+    "Extend_partition_priority": [],
+    "Extend_partition_sa": [
+      "I(C lineitem_1_prt_p4.l_commitdate)",
+      "I(C lineitem_1_prt_p5.l_commitdate)",
+      "I(C lineitem_1_prt_p2.l_commitdate)",
+      "I(C lineitem_1_prt_p6.l_orderkey)",
+      "I(C lineitem_1_prt_p1.l_commitdate)",
+      "I(C lineitem_1_prt_p2.l_partkey)",
+      "I(C lineitem_1_prt_p6.l_commitdate)",
+      "I(C lineitem_1_prt_p1.l_partkey)",
+      "I(C lineitem_1_prt_p4.l_receiptdate,C lineitem_1_prt_p4.l_commitdate)",
+      "I(C lineitem_1_prt_p7.l_discount)",
+      "I(C lineitem_1_prt_p4.l_partkey,C lineitem_1_prt_p4.l_discount)",
+      "I(C lineitem_1_prt_p5.l_orderkey)",
+      "I(C lineitem_1_prt_p5.l_receiptdate)",
+      "I(C lineitem_1_prt_p3.l_orderkey)",
+      "I(C lineitem_1_prt_p4.l_orderkey)",
+      "I(C lineitem_1_prt_p2.l_orderkey)",
+      "I(C lineitem_1_prt_p1.l_orderkey)",
+      "I(C lineitem_1_prt_p7.l_receiptdate)"
+    ]
+  },
+  "comparison_index_details": {
+    "test": {
+      "Extend": [],
+      "Extend_partition": [],
+      "DB2Adv": [],
+      "Slalom": [],
+      "Extend_partition_histogram": [],
+      "Extend_global_independent": [],
+      "Extend_global": [],
+      "Extend_partition_priority": [],
+      "Extend_partition_sa": []
+    },
+    "validation": {
+      "Extend": [],
+      "Extend_partition": [],
+      "DB2Adv": [],
+      "Slalom": [],
+      "Extend_partition_histogram": [],
+      "Extend_global_independent": [],
+      "Extend_global": [],
+      "Extend_partition_priority": [],
+      "Extend_partition_sa": [
+        {
+          "budget": 500,
+          "final_cost_proportion": 93.85,
+          "indexes": [
+            {
+              "repr": "I(C lineitem_1_prt_p1.l_orderkey)",
+              "name": "p1_l_orderkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p1.l_orderkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 105897984.0,
+              "size_mb": 100.99
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p2.l_partkey)",
+              "name": "p2_l_partkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p2.l_partkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 115376128.0,
+              "size_mb": 110.03
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p3.l_orderkey)",
+              "name": "p3_l_orderkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p3.l_orderkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 33890304.0,
+              "size_mb": 32.32
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p4.l_commitdate)",
+              "name": "p4_l_commitdate_idx",
+              "columns": [
+                "C lineitem_1_prt_p4.l_commitdate"
+              ],
+              "column_count": 1,
+              "size_bytes": 53575680.0,
+              "size_mb": 51.09
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p6.l_orderkey)",
+              "name": "p6_l_orderkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p6.l_orderkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 126500864.0,
+              "size_mb": 120.64
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p7.l_discount)",
+              "name": "p7_l_discount_idx",
+              "columns": [
+                "C lineitem_1_prt_p7.l_discount"
+              ],
+              "column_count": 1,
+              "size_bytes": 47579136.0,
+              "size_mb": 45.38
+            }
+          ],
+          "index_count": 6,
+          "total_index_size_bytes": 482820096.0,
+          "total_index_size_mb": 460.45,
+          "calculation_time": 0.94,
+          "cost_evaluation_time": 0.5900000000000003,
+          "cost_requests": 2440,
+          "cache_hits": 780
+        },
+        {
+          "budget": 500,
+          "final_cost_proportion": 94.21,
+          "indexes": [
+            {
+              "repr": "I(C lineitem_1_prt_p1.l_orderkey)",
+              "name": "p1_l_orderkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p1.l_orderkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 105897984.0,
+              "size_mb": 100.99
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p2.l_partkey)",
+              "name": "p2_l_partkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p2.l_partkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 115376128.0,
+              "size_mb": 110.03
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p3.l_orderkey)",
+              "name": "p3_l_orderkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p3.l_orderkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 33890304.0,
+              "size_mb": 32.32
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p4.l_receiptdate,C lineitem_1_prt_p4.l_commitdate)",
+              "name": "p4_l_receiptdate_l_commitdate_idx",
+              "columns": [
+                "C lineitem_1_prt_p4.l_receiptdate",
+                "C lineitem_1_prt_p4.l_commitdate"
+              ],
+              "column_count": 2,
+              "size_bytes": 85729280.0,
+              "size_mb": 81.76
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p5.l_receiptdate)",
+              "name": "p5_l_receiptdate_idx",
+              "columns": [
+                "C lineitem_1_prt_p5.l_receiptdate"
+              ],
+              "column_count": 1,
+              "size_bytes": 98041856.0,
+              "size_mb": 93.5
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p7.l_receiptdate)",
+              "name": "p7_l_receiptdate_idx",
+              "columns": [
+                "C lineitem_1_prt_p7.l_receiptdate"
+              ],
+              "column_count": 1,
+              "size_bytes": 50077696.0,
+              "size_mb": 47.76
+            }
+          ],
+          "index_count": 6,
+          "total_index_size_bytes": 489013248.0,
+          "total_index_size_mb": 466.36,
+          "calculation_time": 0.82,
+          "cost_evaluation_time": 0.5600000000000003,
+          "cost_requests": 5560,
+          "cache_hits": 2311
+        },
+        {
+          "budget": 500,
+          "final_cost_proportion": 93.95,
+          "indexes": [
+            {
+              "repr": "I(C lineitem_1_prt_p1.l_partkey)",
+              "name": "p1_l_partkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p1.l_partkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 105897984.0,
+              "size_mb": 100.99
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p2.l_partkey)",
+              "name": "p2_l_partkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p2.l_partkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 115376128.0,
+              "size_mb": 110.03
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p3.l_orderkey)",
+              "name": "p3_l_orderkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p3.l_orderkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 33890304.0,
+              "size_mb": 32.32
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p4.l_orderkey)",
+              "name": "p4_l_orderkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p4.l_orderkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 53575680.0,
+              "size_mb": 51.09
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p6.l_orderkey)",
+              "name": "p6_l_orderkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p6.l_orderkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 126500864.0,
+              "size_mb": 120.64
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p7.l_discount)",
+              "name": "p7_l_discount_idx",
+              "columns": [
+                "C lineitem_1_prt_p7.l_discount"
+              ],
+              "column_count": 1,
+              "size_bytes": 47579136.0,
+              "size_mb": 45.38
+            }
+          ],
+          "index_count": 6,
+          "total_index_size_bytes": 482820096.0,
+          "total_index_size_mb": 460.45,
+          "calculation_time": 0.59,
+          "cost_evaluation_time": 0.36000000000000015,
+          "cost_requests": 8000,
+          "cache_hits": 3663
+        },
+        {
+          "budget": 500,
+          "final_cost_proportion": 93.45,
+          "indexes": [
+            {
+              "repr": "I(C lineitem_1_prt_p1.l_orderkey)",
+              "name": "p1_l_orderkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p1.l_orderkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 105897984.0,
+              "size_mb": 100.99
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p2.l_orderkey)",
+              "name": "p2_l_orderkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p2.l_orderkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 115376128.0,
+              "size_mb": 110.03
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p3.l_orderkey)",
+              "name": "p3_l_orderkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p3.l_orderkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 33890304.0,
+              "size_mb": 32.32
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p4.l_orderkey)",
+              "name": "p4_l_orderkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p4.l_orderkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 53575680.0,
+              "size_mb": 51.09
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p6.l_orderkey)",
+              "name": "p6_l_orderkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p6.l_orderkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 126500864.0,
+              "size_mb": 120.64
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p7.l_discount)",
+              "name": "p7_l_discount_idx",
+              "columns": [
+                "C lineitem_1_prt_p7.l_discount"
+              ],
+              "column_count": 1,
+              "size_bytes": 47579136.0,
+              "size_mb": 45.38
+            }
+          ],
+          "index_count": 6,
+          "total_index_size_bytes": 482820096.0,
+          "total_index_size_mb": 460.45,
+          "calculation_time": 0.68,
+          "cost_evaluation_time": 0.4200000000000002,
+          "cost_requests": 10440,
+          "cache_hits": 4722
+        },
+        {
+          "budget": 500,
+          "final_cost_proportion": 87.12,
+          "indexes": [
+            {
+              "repr": "I(C lineitem_1_prt_p1.l_orderkey)",
+              "name": "p1_l_orderkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p1.l_orderkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 105897984.0,
+              "size_mb": 100.99
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p2.l_orderkey)",
+              "name": "p2_l_orderkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p2.l_orderkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 115376128.0,
+              "size_mb": 110.03
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p3.l_orderkey)",
+              "name": "p3_l_orderkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p3.l_orderkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 33890304.0,
+              "size_mb": 32.32
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p5.l_orderkey)",
+              "name": "p5_l_orderkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p5.l_orderkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 98041856.0,
+              "size_mb": 93.5
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p6.l_orderkey)",
+              "name": "p6_l_orderkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p6.l_orderkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 126500864.0,
+              "size_mb": 120.64
+            }
+          ],
+          "index_count": 5,
+          "total_index_size_bytes": 479707136.0,
+          "total_index_size_mb": 457.48,
+          "calculation_time": 0.56,
+          "cost_evaluation_time": 0.35000000000000014,
+          "cost_requests": 12740,
+          "cache_hits": 6113
+        },
+        {
+          "budget": 500,
+          "final_cost_proportion": 94.08,
+          "indexes": [
+            {
+              "repr": "I(C lineitem_1_prt_p1.l_orderkey)",
+              "name": "p1_l_orderkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p1.l_orderkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 105897984.0,
+              "size_mb": 100.99
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p2.l_partkey)",
+              "name": "p2_l_partkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p2.l_partkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 115376128.0,
+              "size_mb": 110.03
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p3.l_orderkey)",
+              "name": "p3_l_orderkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p3.l_orderkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 33890304.0,
+              "size_mb": 32.32
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p4.l_partkey,C lineitem_1_prt_p4.l_discount)",
+              "name": "p4_l_partkey_l_discount_idx",
+              "columns": [
+                "C lineitem_1_prt_p4.l_partkey",
+                "C lineitem_1_prt_p4.l_discount"
+              ],
+              "column_count": 2,
+              "size_bytes": 85729280.0,
+              "size_mb": 81.76
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p5.l_orderkey)",
+              "name": "p5_l_orderkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p5.l_orderkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 98041856.0,
+              "size_mb": 93.5
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p7.l_discount)",
+              "name": "p7_l_discount_idx",
+              "columns": [
+                "C lineitem_1_prt_p7.l_discount"
+              ],
+              "column_count": 1,
+              "size_bytes": 47579136.0,
+              "size_mb": 45.38
+            }
+          ],
+          "index_count": 6,
+          "total_index_size_bytes": 486514688.0,
+          "total_index_size_mb": 463.98,
+          "calculation_time": 0.66,
+          "cost_evaluation_time": 0.3900000000000002,
+          "cost_requests": 16000,
+          "cache_hits": 8232
+        },
+        {
+          "budget": 500,
+          "final_cost_proportion": 90.6,
+          "indexes": [
+            {
+              "repr": "I(C lineitem_1_prt_p1.l_orderkey)",
+              "name": "p1_l_orderkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p1.l_orderkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 105897984.0,
+              "size_mb": 100.99
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p2.l_partkey)",
+              "name": "p2_l_partkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p2.l_partkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 115376128.0,
+              "size_mb": 110.03
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p3.l_orderkey)",
+              "name": "p3_l_orderkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p3.l_orderkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 33890304.0,
+              "size_mb": 32.32
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p4.l_orderkey)",
+              "name": "p4_l_orderkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p4.l_orderkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 53575680.0,
+              "size_mb": 51.09
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p6.l_orderkey)",
+              "name": "p6_l_orderkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p6.l_orderkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 126500864.0,
+              "size_mb": 120.64
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p7.l_discount)",
+              "name": "p7_l_discount_idx",
+              "columns": [
+                "C lineitem_1_prt_p7.l_discount"
+              ],
+              "column_count": 1,
+              "size_bytes": 47579136.0,
+              "size_mb": 45.38
+            }
+          ],
+          "index_count": 6,
+          "total_index_size_bytes": 482820096.0,
+          "total_index_size_mb": 460.45,
+          "calculation_time": 0.48,
+          "cost_evaluation_time": 0.2800000000000001,
+          "cost_requests": 18440,
+          "cache_hits": 9903
+        },
+        {
+          "budget": 500,
+          "final_cost_proportion": 94.17,
+          "indexes": [
+            {
+              "repr": "I(C lineitem_1_prt_p2.l_partkey)",
+              "name": "p2_l_partkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p2.l_partkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 115376128.0,
+              "size_mb": 110.03
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p3.l_orderkey)",
+              "name": "p3_l_orderkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p3.l_orderkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 33890304.0,
+              "size_mb": 32.32
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p4.l_commitdate)",
+              "name": "p4_l_commitdate_idx",
+              "columns": [
+                "C lineitem_1_prt_p4.l_commitdate"
+              ],
+              "column_count": 1,
+              "size_bytes": 53575680.0,
+              "size_mb": 51.09
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p5.l_commitdate)",
+              "name": "p5_l_commitdate_idx",
+              "columns": [
+                "C lineitem_1_prt_p5.l_commitdate"
+              ],
+              "column_count": 1,
+              "size_bytes": 98041856.0,
+              "size_mb": 93.5
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p6.l_orderkey)",
+              "name": "p6_l_orderkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p6.l_orderkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 126500864.0,
+              "size_mb": 120.64
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p7.l_discount)",
+              "name": "p7_l_discount_idx",
+              "columns": [
+                "C lineitem_1_prt_p7.l_discount"
+              ],
+              "column_count": 1,
+              "size_bytes": 47579136.0,
+              "size_mb": 45.38
+            }
+          ],
+          "index_count": 6,
+          "total_index_size_bytes": 474963968.0,
+          "total_index_size_mb": 452.96,
+          "calculation_time": 0.46,
+          "cost_evaluation_time": 0.22000000000000006,
+          "cost_requests": 20880,
+          "cache_hits": 11658
+        },
+        {
+          "budget": 500,
+          "final_cost_proportion": 91.96,
+          "indexes": [
+            {
+              "repr": "I(C lineitem_1_prt_p1.l_orderkey)",
+              "name": "p1_l_orderkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p1.l_orderkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 105897984.0,
+              "size_mb": 100.99
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p2.l_partkey)",
+              "name": "p2_l_partkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p2.l_partkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 115376128.0,
+              "size_mb": 110.03
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p5.l_orderkey)",
+              "name": "p5_l_orderkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p5.l_orderkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 98041856.0,
+              "size_mb": 93.5
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p6.l_orderkey)",
+              "name": "p6_l_orderkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p6.l_orderkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 126500864.0,
+              "size_mb": 120.64
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p7.l_discount)",
+              "name": "p7_l_discount_idx",
+              "columns": [
+                "C lineitem_1_prt_p7.l_discount"
+              ],
+              "column_count": 1,
+              "size_bytes": 47579136.0,
+              "size_mb": 45.38
+            }
+          ],
+          "index_count": 5,
+          "total_index_size_bytes": 493395968.0,
+          "total_index_size_mb": 470.54,
+          "calculation_time": 0.47,
+          "cost_evaluation_time": 0.2800000000000001,
+          "cost_requests": 23180,
+          "cache_hits": 13358
+        },
+        {
+          "budget": 500,
+          "final_cost_proportion": 94.42,
+          "indexes": [
+            {
+              "repr": "I(C lineitem_1_prt_p1.l_commitdate)",
+              "name": "p1_l_commitdate_idx",
+              "columns": [
+                "C lineitem_1_prt_p1.l_commitdate"
+              ],
+              "column_count": 1,
+              "size_bytes": 105897984.0,
+              "size_mb": 100.99
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p2.l_commitdate)",
+              "name": "p2_l_commitdate_idx",
+              "columns": [
+                "C lineitem_1_prt_p2.l_commitdate"
+              ],
+              "column_count": 1,
+              "size_bytes": 115376128.0,
+              "size_mb": 110.03
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p5.l_receiptdate)",
+              "name": "p5_l_receiptdate_idx",
+              "columns": [
+                "C lineitem_1_prt_p5.l_receiptdate"
+              ],
+              "column_count": 1,
+              "size_bytes": 98041856.0,
+              "size_mb": 93.5
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p6.l_commitdate)",
+              "name": "p6_l_commitdate_idx",
+              "columns": [
+                "C lineitem_1_prt_p6.l_commitdate"
+              ],
+              "column_count": 1,
+              "size_bytes": 126500864.0,
+              "size_mb": 120.64
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p7.l_discount)",
+              "name": "p7_l_discount_idx",
+              "columns": [
+                "C lineitem_1_prt_p7.l_discount"
+              ],
+              "column_count": 1,
+              "size_bytes": 47579136.0,
+              "size_mb": 45.38
+            }
+          ],
+          "index_count": 5,
+          "total_index_size_bytes": 493395968.0,
+          "total_index_size_mb": 470.54,
+          "calculation_time": 0.53,
+          "cost_evaluation_time": 0.3300000000000001,
+          "cost_requests": 25480,
+          "cache_hits": 14924
+        }
+      ]
+    }
+  },
+  "comparison_indexes_by_budget": {
+    "test": {
+      "Extend": [],
+      "Extend_partition": [],
+      "DB2Adv": [],
+      "Slalom": [],
+      "Extend_partition_histogram": [],
+      "Extend_global_independent": [],
+      "Extend_global": [],
+      "Extend_partition_priority": [],
+      "Extend_partition_sa": []
+    },
+    "validation": {
+      "Extend": [],
+      "Extend_partition": [],
+      "DB2Adv": [],
+      "Slalom": [],
+      "Extend_partition_histogram": [],
+      "Extend_global_independent": [],
+      "Extend_global": [],
+      "Extend_partition_priority": [],
+      "Extend_partition_sa": [
+        {
+          "budget": 500,
+          "runs": 10,
+          "average_final_cost_proportion": 92.78099999999999,
+          "final_cost_proportions": [
+            93.85,
+            94.21,
+            93.95,
+            93.45,
+            87.12,
+            94.08,
+            90.6,
+            94.17,
+            91.96,
+            94.42
+          ],
+          "index_count": 18,
+          "total_index_size_bytes": 1621106688.0,
+          "total_index_size_mb": 1546.01,
+          "indexes": [
+            {
+              "repr": "I(C lineitem_1_prt_p1.l_orderkey)",
+              "name": "p1_l_orderkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p1.l_orderkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 105897984.0,
+              "size_mb": 100.99
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p2.l_partkey)",
+              "name": "p2_l_partkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p2.l_partkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 115376128.0,
+              "size_mb": 110.03
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p3.l_orderkey)",
+              "name": "p3_l_orderkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p3.l_orderkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 33890304.0,
+              "size_mb": 32.32
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p4.l_commitdate)",
+              "name": "p4_l_commitdate_idx",
+              "columns": [
+                "C lineitem_1_prt_p4.l_commitdate"
+              ],
+              "column_count": 1,
+              "size_bytes": 53575680.0,
+              "size_mb": 51.09
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p6.l_orderkey)",
+              "name": "p6_l_orderkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p6.l_orderkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 126500864.0,
+              "size_mb": 120.64
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p7.l_discount)",
+              "name": "p7_l_discount_idx",
+              "columns": [
+                "C lineitem_1_prt_p7.l_discount"
+              ],
+              "column_count": 1,
+              "size_bytes": 47579136.0,
+              "size_mb": 45.38
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p4.l_receiptdate,C lineitem_1_prt_p4.l_commitdate)",
+              "name": "p4_l_receiptdate_l_commitdate_idx",
+              "columns": [
+                "C lineitem_1_prt_p4.l_receiptdate",
+                "C lineitem_1_prt_p4.l_commitdate"
+              ],
+              "column_count": 2,
+              "size_bytes": 85729280.0,
+              "size_mb": 81.76
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p5.l_receiptdate)",
+              "name": "p5_l_receiptdate_idx",
+              "columns": [
+                "C lineitem_1_prt_p5.l_receiptdate"
+              ],
+              "column_count": 1,
+              "size_bytes": 98041856.0,
+              "size_mb": 93.5
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p7.l_receiptdate)",
+              "name": "p7_l_receiptdate_idx",
+              "columns": [
+                "C lineitem_1_prt_p7.l_receiptdate"
+              ],
+              "column_count": 1,
+              "size_bytes": 50077696.0,
+              "size_mb": 47.76
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p1.l_partkey)",
+              "name": "p1_l_partkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p1.l_partkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 105897984.0,
+              "size_mb": 100.99
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p4.l_orderkey)",
+              "name": "p4_l_orderkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p4.l_orderkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 53575680.0,
+              "size_mb": 51.09
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p2.l_orderkey)",
+              "name": "p2_l_orderkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p2.l_orderkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 115376128.0,
+              "size_mb": 110.03
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p5.l_orderkey)",
+              "name": "p5_l_orderkey_idx",
+              "columns": [
+                "C lineitem_1_prt_p5.l_orderkey"
+              ],
+              "column_count": 1,
+              "size_bytes": 98041856.0,
+              "size_mb": 93.5
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p4.l_partkey,C lineitem_1_prt_p4.l_discount)",
+              "name": "p4_l_partkey_l_discount_idx",
+              "columns": [
+                "C lineitem_1_prt_p4.l_partkey",
+                "C lineitem_1_prt_p4.l_discount"
+              ],
+              "column_count": 2,
+              "size_bytes": 85729280.0,
+              "size_mb": 81.76
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p5.l_commitdate)",
+              "name": "p5_l_commitdate_idx",
+              "columns": [
+                "C lineitem_1_prt_p5.l_commitdate"
+              ],
+              "column_count": 1,
+              "size_bytes": 98041856.0,
+              "size_mb": 93.5
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p1.l_commitdate)",
+              "name": "p1_l_commitdate_idx",
+              "columns": [
+                "C lineitem_1_prt_p1.l_commitdate"
+              ],
+              "column_count": 1,
+              "size_bytes": 105897984.0,
+              "size_mb": 100.99
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p2.l_commitdate)",
+              "name": "p2_l_commitdate_idx",
+              "columns": [
+                "C lineitem_1_prt_p2.l_commitdate"
+              ],
+              "column_count": 1,
+              "size_bytes": 115376128.0,
+              "size_mb": 110.03
+            },
+            {
+              "repr": "I(C lineitem_1_prt_p6.l_commitdate)",
+              "name": "p6_l_commitdate_idx",
+              "columns": [
+                "C lineitem_1_prt_p6.l_commitdate"
+              ],
+              "column_count": 1,
+              "size_bytes": 126500864.0,
+              "size_mb": 120.64
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "validation_workloads_count": 10,
+  "testing_workloads_count": 0,
+  "validation_budgets": [
+    500
+  ],
+  "test_budgets": [
+    500
+  ]
+}

@@ -47,7 +47,7 @@
   },
   "workload": {
     "benchmark": "TPCH",
-    "scale_factor": 1,
+    "scale_factor": 10,
     "size": 20,
     "training_with_budget": false,
     "varying_frequencies": true,
@@ -83,7 +83,7 @@
     "unseen_query": false
   },
   "comparison_algorithms": [
-    "extend_partition",
+    "extend",
     "extend_global",
     "extend_partition_sa"
   ],
@@ -103,11 +103,14 @@
       1000
     ],
     "validation": [
+      500,
       1000,
+      1500,
       2000,
       3000,
-      4000,
-      5000
+      5000,
+      7000,
+      10000
     ]
   },
   "column_filters": {

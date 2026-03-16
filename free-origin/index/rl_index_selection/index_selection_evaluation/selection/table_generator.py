@@ -78,6 +78,8 @@ class TableGenerator:
 
         name = "indexselection_" + self.benchmark_name + "___"
         name += str(self.scale_factor).replace(".", "_")
+        if self.benchmark_name == "tpchskew" and self.config and "skew_factor" in self.config:
+            name += "_z" + str(self.config["skew_factor"]).replace(".", "_")
         return name
 
     def _read_column_names(self):
@@ -535,7 +537,9 @@ class TableGenerator:
             self.make_command = ["make", "-f", "makefile_linux.original"]
             if platform.system() == "Darwin":
                 self.make_command = ["make", "-f", "makefile_MacSolaris"]
-            self.directory = "../index_selection_evaluation/tpchskew-kit"
+            import os
+            base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            self.directory = os.path.join(base_dir, "tpchskew-kit")
             self.create_table_statements_file = "dss.ddl"
             self.cmd = ["./dbgen", "-s", str(self.scale_factor), "-f", "-z", str(self.config["skew_factor"])]
         elif self.benchmark_name == "ssb":

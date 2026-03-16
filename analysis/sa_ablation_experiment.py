@@ -10,8 +10,6 @@ import matplotlib.pyplot as plt
 
 VARIANTS = [
     ("Full", "full", "full"),
-    ("w/o OCW", "w_o_ocw", "wo_ocw"),
-    ("w/o DynamicK", "w_o_dynamick", "wo_dynamick"),
     ("w/o GapFilling", "w_o_gapfilling", "wo_gapfilling"),
 ]
 
@@ -36,7 +34,7 @@ def _run_export(root: Path, config_path: Path) -> None:
 
 
 def _find_latest_result(results_dir: Path, experiment_id: str) -> Path:
-    candidates = sorted(results_dir.glob(f"ID_{experiment_id}_timetamps_*/comparison_results.json"))
+    candidates = sorted(results_dir.rglob(f"ID_{experiment_id}_timetamps_*/comparison_results.json"))
     if not candidates:
         raise FileNotFoundError(f"No comparison results found for {experiment_id}")
     return candidates[-1]

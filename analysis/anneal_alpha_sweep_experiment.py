@@ -32,7 +32,7 @@ def _load_results(path: Path) -> dict:
 
 
 def _find_latest_result(results_dir: Path, experiment_id: str) -> Path:
-    candidates = sorted(results_dir.glob(f"ID_{experiment_id}_timetamps_*/comparison_results.json"))
+    candidates = sorted(results_dir.rglob(f"ID_{experiment_id}_timetamps_*/comparison_results.json"))
     if not candidates:
         raise FileNotFoundError(f"No results found for {experiment_id} under {results_dir}")
     return candidates[-1]

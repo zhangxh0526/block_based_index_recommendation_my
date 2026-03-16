@@ -26,7 +26,7 @@ def _run_export(config_path: Path, root: Path) -> None:
     )
 
 def _find_latest_result(results_dir: Path, experiment_id: str) -> Path:
-    candidates = sorted(results_dir.glob(f"ID_{experiment_id}_timetamps_*/comparison_results.json"))
+    candidates = sorted(results_dir.rglob(f"ID_{experiment_id}_timetamps_*/comparison_results.json"))
     if not candidates:
         raise FileNotFoundError(f"No results found for {experiment_id} under {results_dir}")
     return candidates[-1]
@@ -74,7 +74,7 @@ def main() -> None:
         "--budgets",
         type=int,
         nargs="+",
-        default=[500, 1000, 1500, 2000, 2500, 3000, 4000, 5000],
+        default=[500, 1000, 1500, 2000, 3000, 5000, 7000, 10000],
         help="List of budgets to test",
     )
     parser.add_argument(
@@ -101,12 +101,12 @@ def main() -> None:
     # Get benchmark string for result path correctly
     benchmark_name = base_config.get("workload", {}).get("benchmark", "TPCH")
     
-    results_dir = root / "free-origin" / "index" / "rl_index_selection" / "experiment_results" / benchmark_name
+    results_dir = root / "free-origin" / "index" / "rl_index_selection" / "experiment_results"
     output_dir = root / args.output_dir
     output_dir.mkdir(parents=True, exist_ok=True)
 
     algo_map = {
-        "Extend": "Extend_partition",
+        "Extend": "Extend",
         "Extend(Global)": "Extend_global",
         "MS-SA (Ours)": "Extend_partition_sa",
     }
@@ -124,7 +124,7 @@ def main() -> None:
             config["id"] = exp_id
             config["random_seed"] = seed
             # Use lowercase for the input config, because experiment.py parses lowercase
-            config["comparison_algorithms"] = ["extend_partition", "extend_global", "extend_partition_sa"]
+            config["comparison_algorithms"] = ["extend", "extend_global", "extend_partition_sa"]
             
             # Setup SA constraints explicitly
             config.setdefault("sa_allocation", {})
@@ -158,6 +158,8 @@ def main() -> None:
                     if t_val is not None:
                         time_data[label][budget].append(t_val)
         except Exception as e:
+            import traceback
+            traceback.print_exc()
             print(f"Skipping seed {seed} data due to error: {e}")
 
     # Process and Plot

@@ -16,7 +16,7 @@ DEFAULT_PARAMETERS = {
     "min_cost_improvement": 1.003,
     "max_runtime_minutes": 60 * 24,
     # 退温控制
-    "anneal_alpha": 3.0,
+    "anneal_alpha": 1.0,
     # Ablation switches
     "use_ocw": True,
     "use_dynamic_k": True,
@@ -54,7 +54,7 @@ class ExtendAlgorithmPartitionSA(SelectionAlgorithm):
         self.min_cost_improvement = self.parameters["min_cost_improvement"]
         self.cost_evaluation_time = 0
         self.partition_num = self.parameters["partition_num"]
-        self.anneal_alpha = float(self.parameters.get("anneal_alpha", 3.0))
+        self.anneal_alpha = float(self.parameters.get("anneal_alpha", 1.0))
         self.use_ocw = bool(self.parameters.get("use_ocw", True))
         self.use_dynamic_k = bool(self.parameters.get("use_dynamic_k", True))
         self.use_gap_filling = bool(self.parameters.get("use_gap_filling", True))
@@ -230,7 +230,8 @@ class ExtendAlgorithmPartitionSA(SelectionAlgorithm):
         if best.get("size") and (best["size"] - current_size) > remaining_budget_b:
             return None
 
-        return best if best.get("benefit_to_size_ratio", 0) > 0 else None
+        # 拦截极低性价比（< 1e-6）的“黑洞索引”，强行触发 GapFilling 进行跨区福利发放
+        return best if best.get("benefit_to_size_ratio", 0) > 1e-6 else None
 
     def _calculate_best_indexes(self, workload):
         self.cost_evaluation.what_if.drop_all_simulated_indexes()

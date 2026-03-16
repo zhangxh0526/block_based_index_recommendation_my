@@ -1,0 +1,17 @@
+variant,variant_slug,sa_variant,budget_mb,runs,cost_mean,cost_std,time_mean,time_std
+Full,full,full,500,3,92.791333,0.017898,0.629333,0.012342
+w/o GapFilling,wo_gapfilling,w_o_gapfilling,500,3,92.813333,0.029838,0.387333,0.015011
+Full,full,full,1000,3,82.461000,0.270945,0.861333,0.033322
+w/o GapFilling,wo_gapfilling,w_o_gapfilling,1000,3,83.747333,0.414392,0.448000,0.002646
+Full,full,full,1500,3,72.057000,0.728824,0.734333,0.032146
+w/o GapFilling,wo_gapfilling,w_o_gapfilling,1500,3,71.964333,0.869350,0.447333,0.007767
+Full,full,full,2000,3,68.267000,0.533658,1.240333,0.041041
+w/o GapFilling,wo_gapfilling,w_o_gapfilling,2000,3,69.603333,0.858795,0.696333,0.029484
+Full,full,full,3000,3,63.145333,0.335923,3.578667,0.216899
+w/o GapFilling,wo_gapfilling,w_o_gapfilling,3000,3,65.755000,0.536089,1.445333,0.135710
+Full,full,full,5000,3,52.374000,1.474111,5.858333,0.316167
+w/o GapFilling,wo_gapfilling,w_o_gapfilling,5000,3,58.576000,1.754115,3.561667,0.860721
+Full,full,full,7000,3,42.694333,1.311906,6.984667,0.361282
+w/o GapFilling,wo_gapfilling,w_o_gapfilling,7000,3,55.562000,2.220126,4.598667,0.051209
+Full,full,full,10000,3,31.966000,0.845837,9.687000,0.168146
+w/o GapFilling,wo_gapfilling,w_o_gapfilling,10000,3,52.482333,2.603840,5.322667,0.258051
